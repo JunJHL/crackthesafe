@@ -10,29 +10,50 @@
 // DOCUMENT READY FUNCTION BELOW
 $( document ).ready(function() {
     
-let pw1;
-let pw2;
-let pw3;
-let pw4;
-let password=[pw1,pw2,pw3,pw4];
+let randomNumber1=(Math.floor(Math.random()*10)).toString();
+let randomNumber2=(Math.floor(Math.random()*10)).toString;
+let randomNumber3=(Math.floor(Math.random()*10)).toString();
+let randomNumber4=(Math.floor(Math.random()*10)).toString();
 
-$(".verify").click(function() {
-    pw1=$("#number1").val();
-    pw2=$("#number2").val();
-    pw3=$("#number3").val();
-    pw4=$("#number4").val();
-        
-    for(let i=0; i<password.length; i++) {
-        $("#userChoice").append(password[i]);
-    }
-});
+let numberGuess1="";
+let numberGuess2="";
+let numberGuess3="";
+let numberGuess4="";
+
+let numbersCorrect=0;
+let numbersInPlace=0;
+
+let guess=[numberGuess1, numberGuess2, numberGuess3, numberGuess4];  
+let tries=[randomNumber1,randomNumber2,randomNumber3,randomNumber4];
+
+$("#verify").click(function() { 
+    numberGuess1=$("#number1").val();
+    numberGuess2=$("#number2").val();
+    numberGuess3=$("#number3").val();
+    numberGuess4=$("#number4").val();
     
-let randomNumber1=Math.floor(Math.random()*10);
-let randomNumber2=Math.floor(Math.random()*10);
-let randomNumber3=Math.floor(Math.random()*10);
-let randomNumber4=Math.floor(Math.random()*10);
+    plugIn();
+    check();
+});   
 
-$("")
+function plugIn() {   
+    for(let i=0; i<guess.length; i++) {
+        $("#userChoice").append(guess[i]);
+    }
+}
 
+function check() {
+    for(let i=0; i<tries.length; i++) {
+         if(guess[i]===tries[i]) {
+             numbersInPlace++;
+         }
+        if(tries.includes(guess[i])) {
+            numbersCorrect++;
+        }
+    }
+    
+    $("#result").append("Numbers Correct: "+numbersCorrect + "\n");
+    $("#result").append("Number in place: "+numbersCorrect + "\n");
+}
     
 });
