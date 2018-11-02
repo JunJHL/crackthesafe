@@ -23,26 +23,42 @@ let numberGuess4="";
 let numbersCorrect=0;
 let numbersInPlace=0;
 
-let guess=[numberGuess1, numberGuess2, numberGuess3, numberGuess4];  
+let guess;  
 let tries=[randomNumber1,randomNumber2,randomNumber3,randomNumber4];
 
 $("#verify").click(function() { 
+    $("#userChoice").text("");
+    $("#results").text("");
+    
+    numbersCorrect=0;
+    numbersInPlace=0;
+    
     numberGuess1=$("#number1").val();
     numberGuess2=$("#number2").val();
     numberGuess3=$("#number3").val();
     numberGuess4=$("#number4").val();
     
+    guess=[numberGuess1, numberGuess2, numberGuess3, numberGuess4];
+
     plugIn();
     check();
+    
+   
 });   
 
-function plugIn() {   
-    for(let i=0; i<guess.length; i++) {
-        $("#userChoice").append(guess[i]);
+function plugIn() {    
+    for(let i=0; i<guess.length; i++) { 
+        $("#userChoice").append(guess[i]+"&emsp;");
     }
 }
 
 function check() {
+    
+    $("#number1").val("");
+    $("#number2").val("");
+    $("#number3").val("");
+    $("#number4").val("");
+    
     for(let i=0; i<tries.length; i++) {
          if(guess[i]===tries[i]) {
              numbersInPlace++;
@@ -52,8 +68,17 @@ function check() {
         }
     }
     
-    $("#result").append("Numbers Correct: "+numbersCorrect + "\n");
-    $("#result").append("Number in place: "+numbersCorrect + "\n");
+    $("#results").append("Numbers Correct: " + numbersCorrect  );
+    $("#results").append("<br>" + "Number in place: " + numbersInPlace + "</br>");
 }
-    
+
+function pass() {
+    if((numbersCorrect && numbersInPlace) !== 4) {
+        $("#result").text("<br> Try Again </br>");
+    }else{
+        $("body").hide();
+    }
+}
+
 });
+
